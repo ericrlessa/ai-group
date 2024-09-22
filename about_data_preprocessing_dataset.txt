@@ -1,0 +1,30 @@
+Project detail:
+1. Obtain a large classification database. The database needs to have at least 2
+classes, more than 5 features and over 200 samples. Each group has to use
+a unique dataset.
+2. Provide a description of the dataset used including explanation of various
+features.
+3. Pre-process and clean the dataset as appropriate.
+4. Use following approaches for classification of the dataset:
+A. Logistic Regression
+B. Decision Tree
+C. Random Forest
+D. SGD
+E. SVM
+5. Use GridSearchCV to tune the parameter of each of the above models. Can
+you obtain better results in this step for any of the models? Discuss your
+observations.
+6. Randomly (or based on certain hypothesis) remove some features and
+re-evaluate the models. Document your observations with respect to models
+performances
+
+Explaination:
+1.)data preprocessing is done, and can check the notes within the coding
+2.)for the first training we would use df_Encode and df_E_SN preprocessed dataset
+        df_Encode for tree-based algo
+        df_E_SN for non tree-based algo as it preformed standlization & normalization to miniz the range of value
+3.) can use the auto selection tool provide or manually selecting or both to select the features you want
+4.) preform training again, and see the results
+
+# I my opinion, no need to rush for the best result, Explaination is more important, as long as you can explain it, it will be fine.
+Good luck
