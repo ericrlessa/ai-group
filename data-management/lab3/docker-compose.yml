@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.4.2
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: GBC_Superstore
+      MYSQL_USER: user_Superstore
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    command:
+      --lower_case_table_names=1
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./app/files:/var/lib/mysql-files
+
+  python:
+    build: ./app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: user_Superstore
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: GBC_Superstore
+    depends_on:
+      - mysql
+    volumes:
+      - ./app:/app
+    ports:
+      - "5000:5000"
+
+volumes:
+  mysql_data:
