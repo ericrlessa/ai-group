@@ -9,6 +9,7 @@ Original file is located at
 
 import pandas as pd
 import numpy as np
+import os
 
 import xlrd
 
@@ -282,7 +283,15 @@ df_ORDERS1.head()
 
 print(df_ORDERS1['Returned'].value_counts())
 
+def create_directory(directory_name):
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path = 'files'
+    new_folder_path = os.path.join(current_directory, path)
+    if not os.path.exists(new_folder_path):
+        os.mkdir(new_folder_path)
+
 path = 'files/'
+create_directory(path)
 
 #saving each dataframe into csv files
 df_CUSTOMERS1.to_csv(path + 'CUSTOMERS.csv', index=False)
