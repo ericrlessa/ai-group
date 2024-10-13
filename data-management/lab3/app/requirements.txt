@@ -2,3 +2,4 @@ pandas
 numpy
 xlrd
 mysql-connector-python
+openpyxl

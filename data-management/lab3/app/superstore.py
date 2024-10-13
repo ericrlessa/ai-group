@@ -285,8 +285,7 @@ print(df_ORDERS1['Returned'].value_counts())
 
 def create_directory(directory_name):
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path = 'files'
-    new_folder_path = os.path.join(current_directory, path)
+    new_folder_path = os.path.join(current_directory, directory_name)
     if not os.path.exists(new_folder_path):
         os.mkdir(new_folder_path)
 
@@ -545,7 +544,9 @@ df_base = pd.read_sql(query, connection)
 
 connection.close()
 
-print(df_base.head())
+outdir = 'output/'
+create_directory(outdir)
+
+df_base.to_excel(outdir + 'report.xlsx', index=False, engine='openpyxl')
 
 df_base
-
