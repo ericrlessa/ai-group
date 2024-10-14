@@ -523,7 +523,10 @@ connection = wait_for_mysql(host, user, password, database)
 ![image.png](attachment:image.png)
 """
 
-query = """
+outdir = 'output/'
+create_directory(outdir)
+
+queryOp = """
  select
     m.Regional_Manager, c.Segment, cat.Category,
 
@@ -560,13 +563,51 @@ query = """
  group by m.Regional_Manager, c.Segment, cat.Category
 """
 
-
-df_base = pd.read_sql(query, connection)
-
-connection.close()
-
-outdir = 'output/'
-create_directory(outdir)
-
+df_base = pd.read_sql(queryOp, connection)
 df_base.to_excel(outdir + 'operational.xlsx', index=False, engine='openpyxl')
 
+queryExec = """
+select s.ship_mode as 'Shipping Mode',
+        SUM(CASE 
+        WHEN o.order_date BETWEEN '2021-10-01' AND '2021-12-31' 
+        THEN sale.sales 
+        ELSE 0 
+    END) AS 'Sales Q4-21',
+    SUM(CASE 
+        WHEN o.order_date BETWEEN '2020-10-01' AND '2020-12-31' 
+        THEN sale.sales 
+        ELSE 0 
+    END) AS 'Sales Q4-20',
+    ((SUM(CASE 
+        WHEN o.order_date BETWEEN '2021-10-01' AND '2021-12-31' 
+        THEN sale.sales 
+        ELSE 0 
+    END) -
+    SUM(CASE 
+        WHEN o.order_date BETWEEN '2021-07-01' AND '2021-09-30'  
+        THEN sale.sales 
+        ELSE 0 
+    END))/
+    SUM(CASE 
+        WHEN o.order_date BETWEEN '2021-07-01' AND '2021-09-30'  
+        THEN sale.sales 
+        ELSE 0 
+    END))*100
+    as 'Profits'
+  from order_items as oi
+	left join sales as sale on oi.Order_ID=sale.Order_ID and oi.Product_KEY_ID=sale.Product_KEY_ID
+	left join orders as o on o.Order_ID=oi.Order_ID
+	left join products as p on p.Product_KEY_ID=oi.Product_KEY_ID
+	left join subcategory as sub on sub.Sub_Category_ID=p.Sub_Category_ID
+	left join category as cat on cat.Category_ID=sub.Category_ID
+	left join customers as c on o.Customer_ID=c.Customer_ID
+	left join ship as s on s.Ship_ID = o.Ship_ID
+	left join address as a on a.Address_ID=o.Address_ID
+	left join manager as m on m.Region_ID=o.Region_ID
+ group by s.ship_mode
+"""
+
+df_base = pd.read_sql(queryExec, connection)
+df_base.to_excel(outdir + 'executive.xlsx', index=False, engine='openpyxl')
+
+connection.close()
