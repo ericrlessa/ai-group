@@ -570,7 +570,10 @@ queryExec = """
 select ship_mode as 'Shipping Mode',
  sales_q4_20 as 'Sales Q4-20',
  sales_q4_21 as 'Sales Q4-21',
- ((sales_q4_21 - sales_q4_20)/sales_q4_20)* 100 as 'Q4 Sales YOY'
+ ((sales_q4_21 - sales_q4_20)/sales_q4_20)* 100 as 'Q4 Sales YOY',
+ (profit_q4_21/sales_q4_21)*100 as 'Profit Margin',
+ avg_ship_time_q4_21 as 'Average Shipping Time',
+ (return_q4_21/total_orders)*100 as 'Return Rate'
  from (
  select s.ship_mode,
         SUM(CASE 
@@ -578,6 +581,11 @@ select ship_mode as 'Shipping Mode',
         THEN sale.sales 
         ELSE 0 
     END) AS sales_q4_21,
+        SUM(CASE 
+        WHEN o.order_date BETWEEN '2021-10-01' AND '2021-12-31' 
+        THEN sale.profit 
+        ELSE 0 
+    END) AS profit_q4_21,
     SUM(CASE 
         WHEN o.order_date BETWEEN '2020-10-01' AND '2020-12-31' 
         THEN sale.sales 
@@ -587,7 +595,24 @@ select ship_mode as 'Shipping Mode',
         WHEN o.order_date BETWEEN '2021-07-01' AND '2021-09-30'  
         THEN sale.sales 
         ELSE 0 
-    END) AS sales_q3_21
+    END) AS sales_q3_21,
+     avg(CASE 
+        WHEN o.order_date BETWEEN '2021-10-01' AND '2021-12-31' 
+        THEN DATEDIFF(s.ship_date, o.order_date)
+        ELSE 0 
+    END) AS avg_ship_time_q4_21,
+     SUM(CASE 
+        WHEN o.order_date BETWEEN '2021-10-01' AND '2021-12-31' and o.returned = 1 
+        THEN 1 
+        ELSE 0 
+    END) AS return_q4_21,
+    sum(
+    CASE 
+        WHEN o.order_date BETWEEN '2021-10-01' AND '2021-12-31'
+        THEN 1
+        ELSE 0 
+    END
+     ) as total_orders
   from order_items as oi
 	left join sales as sale on oi.Order_ID=sale.Order_ID and oi.Product_KEY_ID=sale.Product_KEY_ID
 	left join orders as o on o.Order_ID=oi.Order_ID
@@ -599,7 +624,7 @@ select ship_mode as 'Shipping Mode',
 	left join address as a on a.Address_ID=o.Address_ID
 	left join manager as m on m.Region_ID=o.Region_ID
  group by s.ship_mode ) sales_q
-"""
+ """
 
 df_base = pd.read_sql(queryExec, connection)
 df_base.to_excel(outdir + 'executive.xlsx', index=False, engine='openpyxl')
