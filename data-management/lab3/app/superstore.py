@@ -648,6 +648,58 @@ df_base.to_excel(outdir + 'operational_Regional_Manager.xlsx', index=False, engi
 
 
 queryExec = """
+SELECT 
+    s.Ship_Mode AS 'Shipping Mode',
+    SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END) AS 'Sales Q4-20',
+    SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) AS 'Sales Q4-21',
+    ROUND(((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
+            SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)) /
+            SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Q4 Sales YOY',
+    ROUND(((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)) /
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Sales Q/Q',
+    SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) AS 'Profits',
+    ROUND((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) /
+           SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Profit Margin',
+    avg_ship.Avg_Shipping_Time AS 'Average Shipping Time', -- Use the average shipping time for each mode
+    ROUND(SUM(CASE 
+                WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' AND 
+                     (CASE 
+                         WHEN s.Ship_Mode = 'First Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 2
+                         WHEN s.Ship_Mode = 'Second Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 3
+                         WHEN s.Ship_Mode = 'Standard Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 5
+                         WHEN s.Ship_Mode = 'Same Day' THEN DATEDIFF(s.Ship_Date, o.Order_Date) = 0
+                         ELSE FALSE
+                     END) THEN 1 ELSE 0 
+            END) / COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END) * 100, 2) AS 'On-Time Shipment',
+    ROUND((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' AND o.Returned = 1 THEN 1 ELSE 0 END) /
+           COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END)) * 100, 2) AS 'Return Rate',
+    -- Calculate Discount Profit Ratio using the average of discounts and profits
+    ROUND(AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN (sa.Sales - (sa.Sales / (1 - sa.Discount))) ELSE 0 END) / 
+          AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END), 2) AS 'Discount Profit Ratio'
+FROM ORDERS o
+JOIN SHIP s ON o.SHIP_ID = s.SHIP_ID
+JOIN ORDER_ITEMS oi ON o.Order_ID = oi.Order_ID
+JOIN PRODUCTS p ON oi.PRODUCT_KEY_ID = p.PRODUCT_KEY_ID
+JOIN Sales sa ON oi.Order_ID = sa.Order_ID AND oi.PRODUCT_KEY_ID = sa.PRODUCT_KEY_ID
+-- Subquery to calculate average shipping time for each mode
+JOIN (
+    SELECT 
+        s.Ship_Mode, 
+        ROUND(AVG(DATEDIFF(s.Ship_Date, o.Order_Date)), 2) AS Avg_Shipping_Time 
+    FROM ORDERS o
+    JOIN SHIP s ON o.SHIP_ID = s.SHIP_ID
+    GROUP BY s.Ship_Mode
+) avg_ship ON s.Ship_Mode = avg_ship.Ship_Mode -- Join to get the average shipping time for each mode
+GROUP BY s.Ship_Mode;
+"""
+
+# Execute the query and save it to an Excel file as in your original code
+df_base = pd.read_sql(queryExec, connection)
+df_base.to_excel(outdir + 'executive.xlsx', index=False, engine='openpyxl')
+
+# this part is the old version of the code
+queryExec = """
 select ship_mode as 'Shipping Mode',
  round(sales_q4_20) as 'Sales Q4-20',
  round(sales_q4_21) as 'Sales Q4-21',
@@ -722,7 +774,48 @@ select ship_mode as 'Shipping Mode',
  group by s.ship_mode ) sales_q
  """
 
+#df_base = pd.read_sql(queryExec, connection)
+#df_base.to_excel(outdir + 'executive.xlsx', index=False, engine='openpyxl')
+
+
+queryExec = """
+SELECT 
+    'Totals/Averages' AS 'Shipping Mode',
+    SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END) AS 'Sales Q4-20',
+    SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) AS 'Sales Q4-21',
+    ROUND(((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
+            SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)) /
+            SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Q4 Sales YOY',
+    ROUND(((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)) /
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Sales Q/Q',
+    SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) AS 'Profits',
+    ROUND((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) /
+           SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Profit Margin',
+    ROUND(AVG(DATEDIFF(s.Ship_Date, o.Order_Date)), 2) AS 'Average Shipping Time', -- Overall average shipping time
+    ROUND(SUM(CASE 
+                WHEN (CASE 
+                         WHEN s.Ship_Mode = 'First Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 2
+                         WHEN s.Ship_Mode = 'Second Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 3
+                         WHEN s.Ship_Mode = 'Standard Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 5
+                         WHEN s.Ship_Mode = 'Same Day' THEN DATEDIFF(s.Ship_Date, o.Order_Date) = 0
+                         ELSE FALSE
+                     END) THEN 1 ELSE 0 
+            END) / COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END) * 100, 2) AS 'On-Time Shipment',
+    ROUND((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' AND o.Returned = 1 THEN 1 ELSE 0 END) /
+           COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END)) * 100, 2) AS 'Return Rate',
+    -- Calculate Discount Profit Ratio using the average of discounts and profits
+    ROUND(AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN (sa.Sales - (sa.Sales / (1 - sa.Discount))) ELSE 0 END) / 
+          AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END), 2) AS 'Discount Profit Ratio'
+FROM ORDERS o
+JOIN SHIP s ON o.SHIP_ID = s.SHIP_ID
+JOIN ORDER_ITEMS oi ON o.Order_ID = oi.Order_ID
+JOIN PRODUCTS p ON oi.PRODUCT_KEY_ID = p.PRODUCT_KEY_ID
+JOIN Sales sa ON oi.Order_ID = sa.Order_ID AND oi.PRODUCT_KEY_ID = sa.PRODUCT_KEY_ID;
+
+"""
 df_base = pd.read_sql(queryExec, connection)
-df_base.to_excel(outdir + 'executive.xlsx', index=False, engine='openpyxl')
+df_base.to_excel(outdir + 'executive_total.xlsx', index=False, engine='openpyxl')
+
 
 connection.close()
