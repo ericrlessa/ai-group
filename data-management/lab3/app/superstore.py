@@ -783,36 +783,62 @@ SELECT
     'Totals/Averages' AS 'Shipping Mode',
     SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END) AS 'Sales Q4-20',
     SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) AS 'Sales Q4-21',
-    ROUND(((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
+    ROUND(
+        (
+            (SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
             SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)) /
-            SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Q4 Sales YOY',
-    ROUND(((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
+            SUM(CASE WHEN o.Order_Date BETWEEN '2020-10-01' AND '2020-12-31' THEN sa.Sales ELSE 0 END)
+        ) * 100, 2
+    ) AS 'Q4 Sales YOY',
+    ROUND(
+        (
+            (SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END) - 
             SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)) /
-            SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Sales Q/Q',
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-07-01' AND '2021-09-30' THEN sa.Sales ELSE 0 END)
+        ) * 100, 2
+    ) AS 'Sales Q/Q',
     SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) AS 'Profits',
-    ROUND((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) /
-           SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END)) * 100, 2) AS 'Profit Margin',
-    ROUND(AVG(DATEDIFF(s.Ship_Date, o.Order_Date)), 2) AS 'Average Shipping Time', -- Overall average shipping time
-    ROUND(SUM(CASE 
-                WHEN (CASE 
-                         WHEN s.Ship_Mode = 'First Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 2
-                         WHEN s.Ship_Mode = 'Second Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 3
-                         WHEN s.Ship_Mode = 'Standard Class' THEN DATEDIFF(s.Ship_Date, o.Order_Date) <= 5
-                         WHEN s.Ship_Mode = 'Same Day' THEN DATEDIFF(s.Ship_Date, o.Order_Date) = 0
-                         ELSE FALSE
-                     END) THEN 1 ELSE 0 
-            END) / COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END) * 100, 2) AS 'On-Time Shipment',
-    ROUND((SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' AND o.Returned = 1 THEN 1 ELSE 0 END) /
-           COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END)) * 100, 2) AS 'Return Rate',
+    ROUND(
+        (
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END) /
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Sales ELSE 0 END)
+        ) * 100, 2
+    ) AS 'Profit Margin',
+    ROUND(AVG(DATEDIFF(s.Ship_Date, o.Order_Date)), 2) AS 'Average Shipping Time',
+    
+    -- Corrected On-Time Shipment Calculation
+    ROUND(
+        (
+            SUM(CASE 
+                    WHEN s.Ship_Mode = 'First Class' AND DATEDIFF(s.Ship_Date, o.Order_Date) <= 2 THEN 1
+                    WHEN s.Ship_Mode = 'Second Class' AND DATEDIFF(s.Ship_Date, o.Order_Date) <= 3 THEN 1
+                    WHEN s.Ship_Mode = 'Standard Class' AND DATEDIFF(s.Ship_Date, o.Order_Date) <= 5 THEN 1
+                    WHEN s.Ship_Mode = 'Same Day' AND DATEDIFF(s.Ship_Date, o.Order_Date) = 0 THEN 1
+                    ELSE 0
+                END
+            ) / 
+            COUNT(o.Order_ID) -- Counting all shipments in the specified date range
+        ) * 100, 2
+    ) AS 'On-Time Shipment',
+    
+    ROUND(
+        (
+            SUM(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' AND o.Returned = 1 THEN 1 ELSE 0 END) /
+            COUNT(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN 1 ELSE NULL END)
+        ) * 100, 2
+    ) AS 'Return Rate',
+    
     -- Calculate Discount Profit Ratio using the average of discounts and profits
-    ROUND(AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN (sa.Sales - (sa.Sales / (1 - sa.Discount))) ELSE 0 END) / 
-          AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END), 2) AS 'Discount Profit Ratio'
+    ROUND(
+        AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN (sa.Sales - (sa.Sales / (1 - sa.Discount))) ELSE 0 END) / 
+        AVG(CASE WHEN o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31' THEN sa.Profit ELSE 0 END), 2
+    ) AS 'Discount Profit Ratio'
 FROM ORDERS o
 JOIN SHIP s ON o.SHIP_ID = s.SHIP_ID
 JOIN ORDER_ITEMS oi ON o.Order_ID = oi.Order_ID
 JOIN PRODUCTS p ON oi.PRODUCT_KEY_ID = p.PRODUCT_KEY_ID
-JOIN Sales sa ON oi.Order_ID = sa.Order_ID AND oi.PRODUCT_KEY_ID = sa.PRODUCT_KEY_ID;
-
+JOIN Sales sa ON oi.Order_ID = sa.Order_ID AND oi.PRODUCT_KEY_ID = sa.PRODUCT_KEY_ID
+WHERE o.Order_Date BETWEEN '2021-10-01' AND '2021-12-31';
 """
 df_base = pd.read_sql(queryExec, connection)
 df_base.to_excel(outdir + 'executive_total.xlsx', index=False, engine='openpyxl')
