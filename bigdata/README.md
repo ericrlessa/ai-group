@@ -1,6 +1,17 @@
-# SQL Server and Hadoop Integration Project
+# SQL Server and Hadoop Integration Project in SSIS pipeline
 
 This repository contains instructions, scripts, and commands for setting up SQL Server and Hadoop (HDFS) integration. It includes SQL Server table creation scripts and HDFS setup commands for user directories.
+
+This made through SSIS environment.
+
+# SSIS Pipeline
+
+The file Pipeline.dstx has the SSIS pipeline:
+
+- copy the csvs files to HDFS
+- extract from HDFS the csv files
+- transform the data
+- load in SQL Server the data transformed
 
 ## 📋 SQL Server Script
 
