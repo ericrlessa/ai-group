@@ -29,6 +29,9 @@ services:
       SERVICE_PRECONDITION: "hive-metastore:9083"
     ports:
       - "10000:10000"
+      - "50111:50111"
+    command: >
+        bash -c "/usr/local/bin/startup.sh; /opt/hive/hcatalog/sbin/webhcat_server.sh start"
   hive-metastore:
     image: bde2020/hive:2.3.2-postgresql-metastore
     env_file:
@@ -44,6 +47,34 @@ services:
     image: shawnzhu/prestodb:0.181
     ports:
       - "8080:8080"
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop2.7.4-java8
+    environment:
+      - YARN_CONF_DIR=/opt/hadoop/etc/hadoop
+    depends_on:
+      - namenode
+      - datanode
+    ports:
+      - "8088:8088"  # Port for ResourceManager Web UI
+    volumes:
+      - ./config:/opt/hadoop/etc/hadoop
+
+  pig:
+    image: my_pig
+    container_name: pig
+    ports:
+      - "50071:50070"  # For accessing the Hadoop web UI externally
+      - "50011:50010"
+    depends_on:
+      - namenode
+      - datanode
+    environment:
+      HADOOP_HOME: "/opt/hadoop-3.2.1"
+      PIG_HOME: "/opt/pig"
+      PATH: "$PATH:/opt/hadoop-3.2.1/bin:/opt/pig/bin"
+    volumes:
+      - ./config:/opt/hadoop-3.2.1/etc/hadoop  # Hadoop configuration files
+    command: ["tail -f /dev/null"]
 
 volumes:
   namenode:

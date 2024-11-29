@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ResourceManager addresses -->
+    <property>
+        <name>yarn.resourcemanager.address</name>
+        <value>resourcemanager:8032</value>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.scheduler.address</name>
+        <value>resourcemanager:8030</value>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address</name>
+        <value>resourcemanager:8031</value>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.admin.address</name>
+        <value>resourcemanager:8033</value>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.webapp.address</name>
+        <value>resourcemanager:8088</value>  <!-- Web UI of ResourceManager -->
+    </property>
+
+    <!-- HDFS NameNode URI -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://namenode:8020</value>
+    </property>
+
+    <!-- ResourceManager hostname -->
+    <property>
+        <name>yarn.nodemanager.hostname</name>
+        <value>resourcemanager</value>
+    </property>
+
+    <!-- Path for NodeManager to store local data -->
+    <property>
+        <name>yarn.nodemanager.local-dirs</name>
+        <value>/mnt/ramdisk/yarn/local</value>
+    </property>
+
+    <!-- Path for NodeManager to store log files -->
+    <property>
+        <name>yarn.nodemanager.log-dirs</name>
+        <value>/mnt/ramdisk/yarn/log</value>
+    </property>
+
+<property><name>yarn.resourcemanager.bind-host</name><value>0.0.0.0</value></property>
+<property><name>yarn.nodemanager.bind-host</name><value>0.0.0.0</value></property>
+<property><name>yarn.nodemanager.bind-host</name><value>0.0.0.0</value></property>
+<property><name>yarn.timeline-service.bind-host</name><value>0.0.0.0</value></property>
+</configuration>
