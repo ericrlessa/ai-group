@@ -55,26 +55,9 @@ services:
       - namenode
       - datanode
     ports:
-      - "8088:8088"  # Port for ResourceManager Web UI
+      - "8088:8088"
     volumes:
       - ./config:/opt/hadoop/etc/hadoop
-
-  pig:
-    image: my_pig
-    container_name: pig
-    ports:
-      - "50071:50070"  # For accessing the Hadoop web UI externally
-      - "50011:50010"
-    depends_on:
-      - namenode
-      - datanode
-    environment:
-      HADOOP_HOME: "/opt/hadoop-3.2.1"
-      PIG_HOME: "/opt/pig"
-      PATH: "$PATH:/opt/hadoop-3.2.1/bin:/opt/pig/bin"
-    volumes:
-      - ./config:/opt/hadoop-3.2.1/etc/hadoop  # Hadoop configuration files
-    command: ["tail -f /dev/null"]
 
 volumes:
   namenode:

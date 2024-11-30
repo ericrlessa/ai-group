@@ -20,23 +20,41 @@ The following SQL script creates the `customer`, `invoice`, and `product` tables
 ```sql
 
 CREATE TABLE [dbo].[customer](
-	[customer_id] [bigint] NULL,
+	[customer_id] [bigint] PRIMARY KEY,
 	[country] [varchar](100) NULL
-)
+ )
 
-CREATE TABLE [dbo].[invoice](
-	[invoice_id] [varchar](50) NULL,
-	[invoice_date] [datetime] NULL,
-	[quantity] [int] NULL,
-	[stock_Code] [varchar](50) NULL,
-	[customer_id] [bigint] NULL
+CREATE TABLE [dbo].[TimeTable](
+	[TimeId] [varchar](100) PRIMARY KEY,
+	[Date] [varchar](100) NOT NULL,
+	[Year] int NOT NULL,
+	[Quarter] int NOT NULL,
+	[Month] int NOT NULL,
+	[MonthName] [varchar](100) NOT NULL,
+	[Day] int NOT NULL,
+	[Week] [varchar](100) NOT NULL
 )
 
 CREATE TABLE [dbo].[product](
-	[stock_code] [varchar](50) NULL,
+	[stock_code] [varchar](50) COLLATE SQL_Latin1_General_CP1_CS_AS PRIMARY KEY,
 	[description] [varchar](50) NULL,
 	[unitPrice] [decimal](15, 5) NULL
 )
+
+
+CREATE TABLE [dbo].[invoice](
+    ID INT IDENTITY(1,1) PRIMARY KEY, 
+	[invoice_id] [varchar](50) NULL,
+	[quantity] [int] NULL,
+	[stock_Code] [varchar](50) COLLATE SQL_Latin1_General_CP1_CS_AS NULL ,
+	[customer_id] [bigint] NULL,
+	[time_id] [varchar](100) NULL,
+	FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+	FOREIGN KEY (time_id) REFERENCES TimeTable(TimeId)
+)
+
+
+
 
 
 ```
