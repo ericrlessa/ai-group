@@ -11,8 +11,8 @@
   DTS:LocaleID="1046"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="293"
-  DTS:VersionGUID="{C2B08A87-7BAA-40D4-91AB-61055411E39A}">
+  DTS:VersionBuild="317"
+  DTS:VersionGUID="{EA2A938E-ED0C-48D7-8C8F-033FECA4C8CD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -248,6 +248,743 @@
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
+      DTS:refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarefa Fluxo de Dados"
+      DTS:DTSID="{302028C0-83E8-4C45-813A-3A5A89E2AE59}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="(Invoice) Extract from HDFS - Transform - Load in SQL Server"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="MicrosoftContactInfo"
+              description="Extracts data from a file in HDFS. The supported file formats are: Text, Avro."
+              name="(Extract) HDFS invoice"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of HDFS file"
+                  expressionType="Notify"
+                  name="FilePath">/user/ssis/data/invoice_processed/part-r-00000</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Column names in the first data row"
+                  expressionType="Notify"
+                  name="FirstRowAsColumnNames">false</property>
+                <property
+                  dataType="System.String"
+                  description="The character used to delimit columns in text file"
+                  name="ColumnDelimiter">,</property>
+                <property
+                  dataType="System.Int32"
+                  description="The character used to delimit columns in text file"
+                  name="FileFormat">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">HdfsSource</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Connections[Hadoop Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Gerenciador de Conexões do Hadoop]"
+                  connectionManagerRefId="Package.ConnectionManagers[Gerenciador de Conexões do Hadoop]"
+                  description="It's used to connect Hadoop cluster"
+                  name="Hadoop Connection Manager" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output]"
+                  name="Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_0]"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]"
+                      name="InvoiceNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_1]"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]"
+                      name="Quantity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_2]"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]"
+                      name="StockCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_3]"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]"
+                      name="CustomerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_4]"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]"
+                      name="TimeId"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns>
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_0]"
+                      dataType="wstr"
+                      length="100"
+                      name="Prop_0" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_1]"
+                      dataType="wstr"
+                      length="100"
+                      name="Prop_1" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_2]"
+                      dataType="wstr"
+                      length="100"
+                      name="Prop_2" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_3]"
+                      dataType="wstr"
+                      length="100"
+                      name="Prop_3" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_4]"
+                      dataType="wstr"
+                      length="100"
+                      name="Prop_4" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output]"
+                  isErrorOut="true"
+                  name="Error output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_0]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_0]"
+                      name="Prop_0" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_1]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_1]"
+                      name="Prop_1" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_2]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_2]"
+                      name="Prop_2" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_3]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_3]"
+                      name="Prop_3" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_4]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_4]"
+                      name="Prop_4" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Divisão Condicional;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
+              description="Encaminha colunas de dados para saídas diferentes, dependendo do conteúdo dos dados. Use condições (expressões do SSIS) para especificar quais linhas são encaminhadas. Por exemplo, separe os registros que precisam ser limpos daqueles que estão prontos para serem carregados ou encaminhe somente um subconjunto de registros."
+              name="(Filter) Not null customer"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Inputs[Entrada de Divisão Condicional]"
+                  description="Entrada para a Transformação Divisão Condicional"
+                  name="Entrada de Divisão Condicional">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Inputs[Entrada de Divisão Condicional].Columns[CustomerID]"
+                      cachedDataType="i8"
+                      cachedName="CustomerID"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[customer not null]"
+                  description="Saída 1 da Transformação Divisão Condicional"
+                  errorOrTruncationOperation="Computação"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="customer not null"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Inputs[Entrada de Divisão Condicional]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica a expressão. Essa versão da expressão usa identificadores de linhagem, em vez de nomes de colunas."
+                      name="Expression">![ISNULL](#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica a versão amigável da expressão. Essa versão de expressão usa nomes de colunas."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL([(Transform) data conversion invoice].CustomerID)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a posição da condição na lista de condições que a transformação avalia. A ordem de avaliação é do menor para o maior valor."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[Saída Padrão de Divisão Condicional]"
+                  description="Saída Padrão da Transformação Divisão Condicional"
+                  exclusionGroup="1"
+                  name="Saída Padrão de Divisão Condicional"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Inputs[Entrada de Divisão Condicional]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[Saída de Erro de Divisão Condicional]"
+                  description="Saída de Erro da Transformação Divisão Condicional"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Divisão Condicional"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Inputs[Entrada de Divisão Condicional]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Divisão Condicional;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
+              description="Encaminha colunas de dados para saídas diferentes, dependendo do conteúdo dos dados. Use condições (expressões do SSIS) para especificar quais linhas são encaminhadas. Por exemplo, separe os registros que precisam ser limpos daqueles que estão prontos para serem carregados ou encaminhe somente um subconjunto de registros."
+              name="(filter) Not null invoice"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]"
+                  description="Entrada para a Transformação Divisão Condicional"
+                  name="Entrada de Divisão Condicional">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional].Columns[InvoiceNo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="InvoiceNo"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[InvoiceNo not null]"
+                  description="Saída 1 da Transformação Divisão Condicional"
+                  errorOrTruncationOperation="Computação"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="InvoiceNo not null"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica a expressão. Essa versão da expressão usa identificadores de linhagem, em vez de nomes de colunas."
+                      name="Expression">![ISNULL](#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica a versão amigável da expressão. Essa versão de expressão usa nomes de colunas."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL([(Transform) data conversion invoice].InvoiceNo)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a posição da condição na lista de condições que a transformação avalia. A ordem de avaliação é do menor para o maior valor."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída Padrão de Divisão Condicional]"
+                  description="Saída Padrão da Transformação Divisão Condicional"
+                  exclusionGroup="1"
+                  name="Saída Padrão de Divisão Condicional"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional]"
+                  description="Saída de Erro da Transformação Divisão Condicional"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Divisão Condicional"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table"
+              componentClassID="Microsoft.SQLServerDestination"
+              contactInfo="Destino do SQL Server;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;5"
+              description="Destino do SQL Server"
+              name="(Load) SQL Server invoice table"
+              version="5">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.String"
+                  description="O nome do objeto de banco de dados no qual copiar dados."
+                  expressionType="Notify"
+                  name="BulkInsertTableName">[dbo].[invoice]</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica que qualquer restrição no objeto de destino será verificada durante a operação de cópia de dados. Corresponde a opção de inserção em massa CHECK_CONSTRAINTS."
+                  name="BulkInsertCheckConstraints">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o número da primeira linha a ser copiada. Corresponde à opção de inserção em massa FIRSTROW."
+                  expressionType="Notify"
+                  name="BulkInsertFirstRow">-1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica que qualquer disparador de inserção definido no objeto de destino será executado durante a cópia de dados. Corresponde à opção de inserção em massa FIRE_TRIGGERS."
+                  name="BulkInsertFireTriggers">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Corresponde à opção de inserção em massa KEEPIDENTITY."
+                  name="BulkInsertKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se as colunas que contêm null terão null copiado no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável somente se o carregamento rápido estiver ativado."
+                  name="BulkInsertKeepNulls">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o número da última linha a ser copiada. Corresponde à opção de inserção em massa LASTROW."
+                  expressionType="Notify"
+                  name="BulkInsertLastRow">-1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o número máximo de erros de sintaxe e erros de compilação que podem ocorrer antes do cancelamento da operação de cópia de dados. Cada linha que não puder ser copiada será ignorada e contada como um erro. Corresponde à opção de inserção em massa MAXERRORS."
+                  name="BulkInsertMaxErrors">-1</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica como os dados a serem copiados estão classificados. Corresponde à opção de inserção em massa ORDER."
+                  expressionType="Notify"
+                  name="BulkInsertOrder"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica que um bloqueio de nível de tabela é adquirido para a duração da operação de cópia de dados. Corresponde à opção de inserção em massa TABLOCK."
+                  name="BulkInsertTablock">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a quantidade de tempo em segundos que o adaptador de Destino SQL aguardará antes de encerrar se não houver dados disponíveis para inserção. Um valor de tempo limite de 0 significa que o adaptador de Destino SQL não terá tempo limite."
+                  expressionType="Notify"
+                  name="Timeout">30</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção dos dados."
+                  name="MaxInsertCommitSize">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-TC6IA7B.online_retail]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-TC6IA7B.online_retail]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server]"
+                  hasSideEffects="true"
+                  name="Entrada de Destino do SQL Server">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[InvoiceNo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="InvoiceNo"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[invoice_id]"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[Quantity]"
+                      cachedDataType="i4"
+                      cachedName="Quantity"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[quantity]"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[Quantity]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[StockCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="StockCode"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[stock_Code]"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[StockCode]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[CustomerID]"
+                      cachedDataType="i8"
+                      cachedName="CustomerID"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[customer_id]"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[TimeId]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TimeId"
+                      externalMetadataColumnId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[time_id]"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[TimeId]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[invoice_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="invoice_id" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[quantity]"
+                      dataType="i4"
+                      name="quantity" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[stock_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stock_Code" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[customer_id]"
+                      dataType="i8"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[time_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="time_id" />
+                    <externalMetadataColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversão de Dados;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversão de Dados"
+              name="(Transform) data conversion invoice"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]"
+                  name="Entrada de Conversão de Dados">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[InvoiceNo]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="InvoiceNo"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[Quantity]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Quantity"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[StockCode]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="StockCode"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[CustomerID]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CustomerID"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]" />
+                    <inputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[TimeId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="TimeId"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados]"
+                  exclusionGroup="1"
+                  name="Saída de Conversão de Dados"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]"
+                      name="InvoiceNo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
+                          name="SourceInputColumnLineageID">#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[Quantity]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[Quantity]"
+                      name="Quantity"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
+                          name="SourceInputColumnLineageID">#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[StockCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[StockCode]"
+                      name="StockCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
+                          name="SourceInputColumnLineageID">#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]"
+                      name="CustomerID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
+                          name="SourceInputColumnLineageID">#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[TimeId]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[TimeId]"
+                      name="TimeId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
+                          name="SourceInputColumnLineageID">#{Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Conversão de Dados"
+                  synchronousInputId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[customer not null]"
+              endId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]"
+              name="customer not null"
+              startId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Outputs[customer not null]" />
+            <path
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[InvoiceNo not null]"
+              endId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server]"
+              name="InvoiceNo not null"
+              startId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[InvoiceNo not null]" />
+            <path
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[Output]"
+              endId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]"
+              name="Output"
+              startId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output]" />
+            <path
+              refId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados]"
+              endId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer.Inputs[Entrada de Divisão Condicional]"
+              name="Saída de Conversão de Dados"
+              startId="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Extract from HDFS - Transform - Load in SQL Server"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Tarefa Fluxo de Dados"
@@ -390,180 +1127,6 @@
                       length="100"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS customer.Outputs[Error output].Columns[Country]"
                       name="Country" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice"
-              componentClassID="Microsoft.ManagedComponentHost"
-              contactInfo="MicrosoftContactInfo"
-              description="Extracts data from a file in HDFS. The supported file formats are: Text, Avro."
-              name="(Extract) HDFS invoice"
-              usesDispositions="true">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="The name of HDFS file"
-                  expressionType="Notify"
-                  name="FilePath">/user/ssis/data/invoice_processed/part-r-00000</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Column names in the first data row"
-                  expressionType="Notify"
-                  name="FirstRowAsColumnNames">false</property>
-                <property
-                  dataType="System.String"
-                  description="The character used to delimit columns in text file"
-                  name="ColumnDelimiter">,</property>
-                <property
-                  dataType="System.Int32"
-                  description="The character used to delimit columns in text file"
-                  name="FileFormat">0</property>
-                <property
-                  dataType="System.String"
-                  name="UserComponentTypeName">HdfsSource</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Connections[Hadoop Connection Manager]"
-                  connectionManagerID="Package.ConnectionManagers[Gerenciador de Conexões do Hadoop]"
-                  connectionManagerRefId="Package.ConnectionManagers[Gerenciador de Conexões do Hadoop]"
-                  description="It's used to connect Hadoop cluster"
-                  name="Hadoop Connection Manager" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output]"
-                  name="Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_0]"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]"
-                      name="InvoiceNo"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_1]"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]"
-                      name="Quantity"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_2]"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]"
-                      name="StockCode"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_3]"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]"
-                      name="CustomerID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_4]"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]"
-                      name="TimeId"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns>
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_0]"
-                      dataType="wstr"
-                      length="100"
-                      name="Prop_0" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_1]"
-                      dataType="wstr"
-                      length="100"
-                      name="Prop_1" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_2]"
-                      dataType="wstr"
-                      length="100"
-                      name="Prop_2" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_3]"
-                      dataType="wstr"
-                      length="100"
-                      name="Prop_3" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].ExternalColumns[Prop_4]"
-                      dataType="wstr"
-                      length="100"
-                      name="Prop_4" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output]"
-                  isErrorOut="true"
-                  name="Error output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_0]"
-                      dataType="wstr"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_0]"
-                      name="Prop_0" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_1]"
-                      dataType="wstr"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_1]"
-                      name="Prop_1" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_2]"
-                      dataType="wstr"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_2]"
-                      name="Prop_2" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_3]"
-                      dataType="wstr"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_3]"
-                      name="Prop_3" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_4]"
-                      dataType="wstr"
-                      length="100"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Error output].Columns[Prop_4]"
-                      name="Prop_4" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -1028,97 +1591,6 @@
               </outputs>
             </component>
             <component
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice"
-              componentClassID="Microsoft.ConditionalSplit"
-              contactInfo="Divisão Condicional;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
-              description="Encaminha colunas de dados para saídas diferentes, dependendo do conteúdo dos dados. Use condições (expressões do SSIS) para especificar quais linhas são encaminhadas. Por exemplo, separe os registros que precisam ser limpos daqueles que estão prontos para serem carregados ou encaminhe somente um subconjunto de registros."
-              name="(filter) Not null invoice"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]"
-                  description="Entrada para a Transformação Divisão Condicional"
-                  name="Entrada de Divisão Condicional">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional].Columns[InvoiceNo]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="InvoiceNo"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[InvoiceNo not null]"
-                  description="Saída 1 da Transformação Divisão Condicional"
-                  errorOrTruncationOperation="Computação"
-                  errorRowDisposition="FailComponent"
-                  exclusionGroup="1"
-                  name="InvoiceNo not null"
-                  synchronousInputId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]"
-                  truncationRowDisposition="FailComponent">
-                  <properties>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Especifica a expressão. Essa versão da expressão usa identificadores de linhagem, em vez de nomes de colunas."
-                      name="Expression">![ISNULL](#{Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]})</property>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Especifica a versão amigável da expressão. Essa versão de expressão usa nomes de colunas."
-                      expressionType="Notify"
-                      name="FriendlyExpression">!ISNULL([(Transform) data conversion invoice].InvoiceNo)</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especifica a posição da condição na lista de condições que a transformação avalia. A ordem de avaliação é do menor para o maior valor."
-                      name="EvaluationOrder">0</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída Padrão de Divisão Condicional]"
-                  description="Saída Padrão da Transformação Divisão Condicional"
-                  exclusionGroup="1"
-                  name="Saída Padrão de Divisão Condicional"
-                  synchronousInputId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      name="IsDefaultOut">true</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional]"
-                  description="Saída de Erro da Transformação Divisão Condicional"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Saída de Erro de Divisão Condicional"
-                  synchronousInputId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[Saída de Erro de Divisão Condicional].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
               refId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null stock code"
               componentClassID="Microsoft.ConditionalSplit"
               contactInfo="Divisão Condicional;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
@@ -1294,14 +1766,13 @@
                   name="Entrada de Destino do SQL Server">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server customer table.Inputs[Entrada de Destino do SQL Server].Columns[Country]"
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server customer table.Inputs[Entrada de Destino do SQL Server].Columns[(Transform) data conversion customer.Country]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
-                      cachedName="Country"
-                      cachedSortKeyPosition="2"
+                      cachedName="(Transform) data conversion customer.Country"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server customer table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[country]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída].Columns[Country]" />
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion customer.Country]" />
                     <inputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server customer table.Inputs[Entrada de Destino do SQL Server].Columns[CustomerID]"
                       cachedDataType="i8"
@@ -1322,159 +1793,6 @@
                       dataType="str"
                       length="100"
                       name="country" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-            </component>
-            <component
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table"
-              componentClassID="Microsoft.SQLServerDestination"
-              contactInfo="Destino do SQL Server;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;5"
-              description="Destino do SQL Server"
-              name="(Load) SQL Server invoice table"
-              version="5">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.String"
-                  description="O nome do objeto de banco de dados no qual copiar dados."
-                  expressionType="Notify"
-                  name="BulkInsertTableName">[dbo].[invoice]</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Especifica que qualquer restrição no objeto de destino será verificada durante a operação de cópia de dados. Corresponde a opção de inserção em massa CHECK_CONSTRAINTS."
-                  name="BulkInsertCheckConstraints">true</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica o número da primeira linha a ser copiada. Corresponde à opção de inserção em massa FIRSTROW."
-                  expressionType="Notify"
-                  name="BulkInsertFirstRow">-1</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Especifica que qualquer disparador de inserção definido no objeto de destino será executado durante a cópia de dados. Corresponde à opção de inserção em massa FIRE_TRIGGERS."
-                  name="BulkInsertFireTriggers">false</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Corresponde à opção de inserção em massa KEEPIDENTITY."
-                  name="BulkInsertKeepIdentity">false</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indica se as colunas que contêm null terão null copiado no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável somente se o carregamento rápido estiver ativado."
-                  name="BulkInsertKeepNulls">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica o número da última linha a ser copiada. Corresponde à opção de inserção em massa LASTROW."
-                  expressionType="Notify"
-                  name="BulkInsertLastRow">-1</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica o número máximo de erros de sintaxe e erros de compilação que podem ocorrer antes do cancelamento da operação de cópia de dados. Cada linha que não puder ser copiada será ignorada e contada como um erro. Corresponde à opção de inserção em massa MAXERRORS."
-                  name="BulkInsertMaxErrors">-1</property>
-                <property
-                  dataType="System.String"
-                  description="Especifica como os dados a serem copiados estão classificados. Corresponde à opção de inserção em massa ORDER."
-                  expressionType="Notify"
-                  name="BulkInsertOrder"></property>
-                <property
-                  dataType="System.Boolean"
-                  description="Especifica que um bloqueio de nível de tabela é adquirido para a duração da operação de cópia de dados. Corresponde à opção de inserção em massa TABLOCK."
-                  name="BulkInsertTablock">true</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica a quantidade de tempo em segundos que o adaptador de Destino SQL aguardará antes de encerrar se não houver dados disponíveis para inserção. Um valor de tempo limite de 0 significa que o adaptador de Destino SQL não terá tempo limite."
-                  expressionType="Notify"
-                  name="Timeout">30</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção dos dados."
-                  name="MaxInsertCommitSize">0</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-TC6IA7B.online_retail]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-TC6IA7B.online_retail]"
-                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server]"
-                  hasSideEffects="true"
-                  name="Entrada de Destino do SQL Server">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[InvoiceNo]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="InvoiceNo"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[invoice_id]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[Quantity]"
-                      cachedDataType="i4"
-                      cachedName="Quantity"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[quantity]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[Quantity]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[StockCode]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="StockCode"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[stock_Code]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[StockCode]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[CustomerID]"
-                      cachedDataType="i8"
-                      cachedName="CustomerID"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[customer_id]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].Columns[TimeId]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="TimeId"
-                      externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[time_id]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[TimeId]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[invoice_id]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="invoice_id" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[quantity]"
-                      dataType="i4"
-                      name="quantity" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[stock_Code]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="stock_Code" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[customer_id]"
-                      dataType="i8"
-                      name="customer_id" />
-                    <externalMetadataColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[time_id]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="time_id" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1564,28 +1882,29 @@
                   name="Entrada de Destino do SQL Server">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].Columns[StockCode]"
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].Columns[(Transform) data conversion product.StockCode]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
-                      cachedName="StockCode"
+                      cachedName="(Transform) data conversion product.StockCode"
+                      cachedSortKeyPosition="1"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[stock_code]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[StockCode]" />
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion product.StockCode]" />
                     <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].Columns[Description]"
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].Columns[(Transform) data conversion product.Description]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
-                      cachedName="Description"
+                      cachedName="(Transform) data conversion product.Description"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[description]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[Description]" />
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion product.Description]" />
                     <inputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].Columns[UnitPrice]"
                       cachedDataType="decimal"
                       cachedName="UnitPrice"
                       cachedScale="3"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[unitPrice]"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[UnitPrice]" />
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[UnitPrice]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1705,25 +2024,19 @@
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[TimeId]" />
                     <inputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].Columns[Quarter]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
+                      cachedDataType="i4"
                       cachedName="Quarter"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Quarter]"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Quarter]" />
                     <inputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].Columns[Month]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
+                      cachedDataType="i4"
                       cachedName="Month"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Month]"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Month]" />
                     <inputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].Columns[Day]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
+                      cachedDataType="i4"
                       cachedName="Day"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Day]"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Day]" />
@@ -1745,9 +2058,7 @@
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Date]" />
                     <inputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].Columns[Year]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
+                      cachedDataType="i4"
                       cachedName="Year"
                       externalMetadataColumnId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Year]"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Year]" />
@@ -1776,21 +2087,15 @@
                       name="Date" />
                     <externalMetadataColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Year]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
+                      dataType="i4"
                       name="Year" />
                     <externalMetadataColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Quarter]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
+                      dataType="i4"
                       name="Quarter" />
                     <externalMetadataColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Month]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
+                      dataType="i4"
                       name="Month" />
                     <externalMetadataColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[MonthName]"
@@ -1800,9 +2105,7 @@
                       name="MonthName" />
                     <externalMetadataColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Day]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
+                      dataType="i4"
                       name="Day" />
                     <externalMetadataColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server].ExternalColumns[Week]"
@@ -1813,6 +2116,235 @@
                   </externalMetadataColumns>
                 </input>
               </inputs>
+            </component>
+            <component
+              refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Classificar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;1"
+              description="Classifica os dados de entrada em ordem crescente ou decrescente quando eles não podem ser classificados em sua origem. Por exemplo, classifique dados de vendas por 'customer id' antes de eles serem gravados em um arquivo simples e entregues a outro departamento. Observação: essa transformação não é recomendável para fluxos de dados grandes."
+              name="(product) Sort and remove duplicates"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se a transformação Classificação remove linhas com valores de classificação duplicados."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o número máximo de threads a usar para classificação."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada]"
+                  name="Classificar Entrada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada].Columns[StockCode]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="StockCode"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output].Columns[StockCode]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica as opções de comparação para os dados de caractere."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica a ordem de classificação da coluna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Description"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output].Columns[Description]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica as opções de comparação para os dados de caractere."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica a ordem de classificação da coluna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada].Columns[UnitPrice ]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="UnitPrice "
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output].Columns[UnitPrice ]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica as opções de comparação para os dados de caractere."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica a ordem de classificação da coluna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada].Columns[StockCode1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="StockCode"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[StockCode]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica as opções de comparação para os dados de caractere."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica a ordem de classificação da coluna."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada].Columns[Description1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Description"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[Description]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica as opções de comparação para os dados de caractere."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica a ordem de classificação da coluna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada].Columns[UnitPrice]"
+                      cachedDataType="decimal"
+                      cachedName="UnitPrice"
+                      cachedScale="3"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica as opções de comparação para os dados de caractere."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica a ordem de classificação da coluna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída]"
+                  isSorted="true"
+                  name="Classificar Saída">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Extract) HDFS product.StockCode]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Extract) HDFS product.StockCode]"
+                      name="(Extract) HDFS product.StockCode">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica o identificador de linhagem da coluna de entrada associada à coluna de saída."
+                          name="SortColumnId">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output].Columns[StockCode]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Extract) HDFS product.Description]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Extract) HDFS product.Description]"
+                      name="(Extract) HDFS product.Description">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica o identificador de linhagem da coluna de entrada associada à coluna de saída."
+                          name="SortColumnId">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output].Columns[Description]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[UnitPrice ]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[UnitPrice ]"
+                      name="UnitPrice ">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica o identificador de linhagem da coluna de entrada associada à coluna de saída."
+                          name="SortColumnId">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output].Columns[UnitPrice ]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion product.StockCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion product.StockCode]"
+                      name="(Transform) data conversion product.StockCode"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica o identificador de linhagem da coluna de entrada associada à coluna de saída."
+                          name="SortColumnId">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[StockCode]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion product.Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion product.Description]"
+                      name="(Transform) data conversion product.Description">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica o identificador de linhagem da coluna de entrada associada à coluna de saída."
+                          name="SortColumnId">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[Description]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[UnitPrice]"
+                      dataType="decimal"
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      scale="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica o identificador de linhagem da coluna de entrada associada à coluna de saída."
+                          name="SortColumnId">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
             </component>
             <component
               refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion customer"
@@ -1911,192 +2443,6 @@
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion customer.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion customer.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice"
-              componentClassID="Microsoft.DataConvert"
-              contactInfo="Conversão de Dados;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
-              description="Conversão de Dados"
-              name="(Transform) data conversion invoice"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]"
-                  name="Entrada de Conversão de Dados">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[InvoiceNo]"
-                      cachedDataType="wstr"
-                      cachedLength="100"
-                      cachedName="InvoiceNo"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[Quantity]"
-                      cachedDataType="wstr"
-                      cachedLength="100"
-                      cachedName="Quantity"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[StockCode]"
-                      cachedDataType="wstr"
-                      cachedLength="100"
-                      cachedName="StockCode"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[CustomerID]"
-                      cachedDataType="wstr"
-                      cachedLength="100"
-                      cachedName="CustomerID"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]" />
-                    <inputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados].Columns[TimeId]"
-                      cachedDataType="wstr"
-                      cachedLength="100"
-                      cachedName="TimeId"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados]"
-                  exclusionGroup="1"
-                  name="Saída de Conversão de Dados"
-                  synchronousInputId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversão"
-                      errorRowDisposition="FailComponent"
-                      length="50"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[InvoiceNo]"
-                      name="InvoiceNo"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
-                          name="SourceInputColumnLineageID">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[InvoiceNo]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[Quantity]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversão"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[Quantity]"
-                      name="Quantity"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
-                          name="SourceInputColumnLineageID">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[Quantity]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[StockCode]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversão"
-                      errorRowDisposition="FailComponent"
-                      length="50"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[StockCode]"
-                      name="StockCode"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
-                          name="SourceInputColumnLineageID">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[StockCode]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]"
-                      dataType="i8"
-                      errorOrTruncationOperation="Conversão"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[CustomerID]"
-                      name="CustomerID"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
-                          name="SourceInputColumnLineageID">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[CustomerID]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[TimeId]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversão"
-                      errorRowDisposition="FailComponent"
-                      length="50"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados].Columns[TimeId]"
-                      name="TimeId"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica a coluna de entrada usada como a origem dois dados para a conversão."
-                          name="SourceInputColumnLineageID">#{Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output].Columns[TimeId]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica se a coluna usa as rotinas de análise de localidade neutro mais rápidas."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Saída de Erro de Conversão de Dados"
-                  synchronousInputId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2354,11 +2700,9 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Year]"
-                      codePage="1252"
-                      dataType="str"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversão"
                       errorRowDisposition="FailComponent"
-                      length="100"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Year]"
                       name="Year"
                       truncationRowDisposition="FailComponent">
@@ -2376,11 +2720,9 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Quarter]"
-                      codePage="1252"
-                      dataType="str"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversão"
                       errorRowDisposition="FailComponent"
-                      length="100"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Quarter]"
                       name="Quarter"
                       truncationRowDisposition="FailComponent">
@@ -2398,11 +2740,9 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Month]"
-                      codePage="1252"
-                      dataType="str"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversão"
                       errorRowDisposition="FailComponent"
-                      length="100"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Month]"
                       name="Month"
                       truncationRowDisposition="FailComponent">
@@ -2442,11 +2782,9 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Day]"
-                      codePage="1252"
-                      dataType="str"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversão"
                       errorRowDisposition="FailComponent"
-                      length="100"
                       lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados].Columns[Day]"
                       name="Day"
                       truncationRowDisposition="FailComponent">
@@ -2616,7 +2954,7 @@
                         <property
                           dataType="System.Int32"
                           description="Especifica a ordem de classificação da coluna."
-                          name="NewSortKeyPosition">2</property>
+                          name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -2686,13 +3024,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída].Columns[Country]"
+                      refId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion customer.Country]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída].Columns[Country]"
-                      name="Country"
-                      sortKeyPosition="2">
+                      lineageId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída].Columns[(Transform) data conversion customer.Country]"
+                      name="(Transform) data conversion customer.Country">
                       <properties>
                         <property
                           containsID="true"
@@ -2714,15 +3051,15 @@
               name="Classificar Saída"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Outputs[Classificar Saída]" />
             <path
+              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Classificar Saída1]"
+              endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server]"
+              name="Classificar Saída"
+              startId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Outputs[Classificar Saída]" />
+            <path
               refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[customer not null]"
               endId="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates.Inputs[Classificar Entrada]"
               name="customer not null"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null customer.Outputs[customer not null]" />
-            <path
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[InvoiceNo not null]"
-              endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table.Inputs[Entrada de Destino do SQL Server]"
-              name="InvoiceNo not null"
-              startId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Outputs[InvoiceNo not null]" />
             <path
               refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output]"
               endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Inputs[Entrada de Conversão de Dados]"
@@ -2730,16 +3067,11 @@
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product.Outputs[Output]" />
             <path
               refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output1]"
-              endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Inputs[Entrada de Conversão de Dados]"
-              name="Output"
-              startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice.Outputs[Output]" />
-            <path
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output2]"
               endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion customer.Inputs[Entrada de Conversão de Dados]"
               name="Output"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS customer.Outputs[Output]" />
             <path
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output3]"
+              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output2]"
               endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Inputs[Entrada de Conversão de Dados]"
               name="Output"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS time.Outputs[Output]" />
@@ -2750,22 +3082,17 @@
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product.Outputs[Saída de Conversão de Dados]" />
             <path
               refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados1]"
-              endId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice.Inputs[Entrada de Divisão Condicional]"
-              name="Saída de Conversão de Dados"
-              startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice.Outputs[Saída de Conversão de Dados]" />
-            <path
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados2]"
               endId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null customer.Inputs[Entrada de Divisão Condicional]"
               name="Saída de Conversão de Dados"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion customer.Outputs[Saída de Conversão de Dados]" />
             <path
-              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados3]"
+              refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados2]"
               endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table.Inputs[Entrada de Destino do SQL Server]"
               name="Saída de Conversão de Dados"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time.Outputs[Saída de Conversão de Dados]" />
             <path
               refId="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[StockCode not null]"
-              endId="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table.Inputs[Entrada de Destino do SQL Server]"
+              endId="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates.Inputs[Classificar Entrada]"
               name="StockCode not null"
               startId="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null stock code.Outputs[StockCode not null]" />
           </paths>
@@ -3657,6 +3984,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
       DTS:To="Package\Extract from HDFS - Transform - Load in SQL Server" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{D4C8E338-508D-46A0-85F1-FCB55AC0D0BF}"
+      DTS:From="Package\Extract from HDFS - Transform - Load in SQL Server"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -3669,29 +4004,55 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="326,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server"
-          TopLeft="144,188" />
+          TopLeft="144,175" />
         <NodeLayout
           Size="165,42"
           Id="Package\Load files in HDFS"
-          TopLeft="232,72" />
+          TopLeft="218,74" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="310.75,114">
+          TopLeft="303.75,116">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,74"
+              EndConnector="0,59"
               Start="0,0"
-              End="0,66.5">
+              End="0,51.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,66.5" />
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="371,42"
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server"
+          TopLeft="123,274" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="307.75,217">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3711,54 +4072,22 @@
         <NodeLayout
           Size="202,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null stock code"
-          TopLeft="343,195" />
+          TopLeft="48,198" />
         <NodeLayout
           Size="252,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion product"
-          TopLeft="317,114" />
-        <NodeLayout
-          Size="185,42"
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice"
-          TopLeft="60,28" />
-        <NodeLayout
-          Size="184,42"
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice"
-          TopLeft="56,199" />
+          TopLeft="22,117" />
         <NodeLayout
           Size="231,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table"
-          TopLeft="328,301" />
+          TopLeft="28,392" />
         <NodeLayout
           Size="188,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS product"
-          TopLeft="353,29" />
-        <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[StockCode not null]"
-          TopLeft="443.75,237">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,64"
-              Start="0,0"
-              End="0,56.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-77.11240234375,22.4453125,154.2248046875,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="58,32" />
         <EdgeLayout
           Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados]"
-          TopLeft="443.5,156">
+          TopLeft="148.5,159">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3775,14 +4104,12 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,10.9658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output]"
-          TopLeft="445,71">
+          TopLeft="150,74">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3799,102 +4126,20 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,12.9658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="249,42"
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice"
-          TopLeft="29,120" />
-        <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output1]"
-          TopLeft="153,70">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,50"
-              Start="0,0"
-              End="0,42.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,42.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,16.4658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados1]"
-          TopLeft="150.75,162">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,37"
-              Start="0,0"
-              End="0,29.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,29.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,9.9658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="228,42"
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table"
-          TopLeft="40,304" />
-        <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[InvoiceNo not null]"
-          TopLeft="151,241">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,63"
-              Start="0,0"
-              End="0,55.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,55.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-75.98333984375,21.9453125,151.9666796875,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="196,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS customer"
-          TopLeft="631,25" />
+          TopLeft="336,28" />
         <NodeLayout
           Size="260,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion customer"
-          TopLeft="596,108" />
+          TopLeft="301,111" />
         <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output2]"
-          TopLeft="727.5,67">
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output1]"
+          TopLeft="432.5,70">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3911,18 +4156,16 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,11.9658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="195,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(filter) Not null customer"
-          TopLeft="623,193" />
+          TopLeft="328,196" />
         <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados2]"
-          TopLeft="723.25,150">
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados1]"
+          TopLeft="428.25,153">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3939,18 +4182,16 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,12.9658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="208,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\Sort and remove duplicates"
-          TopLeft="622,285" />
+          TopLeft="327,288" />
         <EdgeLayout
           Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[customer not null]"
-          TopLeft="723.25,235">
+          TopLeft="428.25,238">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3968,17 +4209,17 @@
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-74.41634765625,15.4453125,148.8326953125,11.609375"
+              BoundingBox="-39.02673828125,16.37548828125,78.0534765625,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="239,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server customer table"
-          TopLeft="604,365" />
+          TopLeft="309,368" />
         <EdgeLayout
           Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Classificar Saída]"
-          TopLeft="724.75,327">
+          TopLeft="429.75,330">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3995,62 +4236,20 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-25.26357421875,10.44873046875,50.5271484375,9.6025390625"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="173,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS time"
-          TopLeft="893,19" />
+          TopLeft="609,25" />
         <NodeLayout
           Size="237,42"
           Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion time"
-          TopLeft="871,107" />
+          TopLeft="576,110" />
         <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output3]"
-          TopLeft="979.5,61">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="10,46"
-              Start="0,0"
-              End="10,38.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19"
-                    Point2="0,23"
-                    Point3="4,23" />
-                  <mssgle:LineSegment
-                    End="6,23" />
-                  <mssgle:CubicBezierSegment
-                    Point1="6,23"
-                    Point2="10,23"
-                    Point3="10,27" />
-                  <mssgle:LineSegment
-                    End="10,38.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-22.8251171875,28,55.650234375,9.5732421875"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="216,42"
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table"
-          TopLeft="876,192" />
-        <EdgeLayout
-          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados3]"
-          TopLeft="986.75,149">
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Output2]"
+          TopLeft="695,67">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -4067,22 +4266,88 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="216,42"
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server time table"
+          TopLeft="581,195" />
+        <EdgeLayout
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados2]"
+          TopLeft="691.75,152">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43"
+              Start="0,0"
+              End="0,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="255,42"
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server\(product) Sort and remove duplicates"
+          TopLeft="19,305" />
+        <EdgeLayout
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[StockCode not null]"
+          TopLeft="147.75,240">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-27.8251171875,12.96337890625,55.650234375,9.5732421875"
+              BoundingBox="-41.72279296875,23.87548828125,83.4455859375,9.7490234375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Extract from HDFS - Transform - Load in SQL Server.Paths[Classificar Saída1]"
+          TopLeft="145,347">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server product table">
     <Properties>
@@ -4103,7 +4368,7 @@
     design-time-name="Package\Load files in HDFS">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="132,42"
           Id="Package\Load files in HDFS\product file"
@@ -4139,9 +4404,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,35.4658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4175,9 +4438,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-40.51849609375,49,61.0369921875,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
@@ -4207,9 +4468,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-30.51849609375,36.4658203125,61.0369921875,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4233,14 +4492,6 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Load files in HDFS\HDFS customer">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4279,5 +4530,125 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Extract) HDFS invoice"
+          TopLeft="88,60" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(filter) Not null invoice"
+          TopLeft="92,306" />
+        <NodeLayout
+          Size="249,42"
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Transform) data conversion invoice"
+          TopLeft="60,134" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Load) SQL Server invoice table"
+          TopLeft="67,403" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server\(Filter) Not null customer"
+          TopLeft="86,209" />
+        <EdgeLayout
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[Output]"
+          TopLeft="182.5,102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[InvoiceNo not null]"
+          TopLeft="182.5,348">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.59373046875,18.87548828125,81.1874609375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[Saída de Conversão de Dados]"
+          TopLeft="184.5,176">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\(Invoice) Extract from HDFS - Transform - Load in SQL Server.Paths[customer not null]"
+          TopLeft="184.25,251">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-39.02673828125,18.87548828125,78.0534765625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
