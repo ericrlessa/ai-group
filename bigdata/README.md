@@ -15,7 +15,7 @@ The file Pipeline.dstx has the SSIS pipeline:
 
 ## 📋 SQL Server Script
 
-The following SQL script creates the `customer`, `invoice`, and `product` tables in your SQL Server database.
+The following SQL script creates the `customer`, `TimeTable`, `invoice`, and `product` tables in your SQL Server database.
 
 ```sql
 
